@@ -106,10 +106,11 @@ class Ship:
 class Battleship:
     def __init__(self, ships: list[tuple]) -> None:
         self.ships = [Ship(*ship) for ship in ships]
-        self.field = {}
-        for ship in self.ships:
-            for deck in ship.decks:
-                self.field.update({(deck.row, deck.column): ship})
+        self.field = {
+            (deck.row, deck.column): ship
+            for ship in self.ships
+            for deck in ship.decks
+        }
         self._validate_field()
 
     def fire(self, location: tuple) -> str:
